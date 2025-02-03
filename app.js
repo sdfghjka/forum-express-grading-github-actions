@@ -7,7 +7,7 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const SESSION_SECRET = "secret";
 const passport = require("passport");
-const { getUser } = require("./helpers/auth-helper");
+const { getUser } = require("./helpers/auth-helpers");
 const handlebarsHelpers = require("./helpers/handlebars-helpers");
 
 app.use(
