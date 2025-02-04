@@ -9,6 +9,7 @@ const SESSION_SECRET = "secret";
 const passport = require("passport");
 const { getUser } = require("./helpers/auth-helpers");
 const handlebarsHelpers = require("./helpers/handlebars-helpers");
+const methodOverride = require("method-override");
 
 app.use(
   session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false })
@@ -16,9 +17,9 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use(flash());
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 app.use((req, res, next) => {
   res.locals.success_messages = req.flash("success_messages"); // 設定 success_msg 訊息
