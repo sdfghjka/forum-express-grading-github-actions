@@ -1,14 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const restController = require("../controllers/restaurant-controller");
+const admin = require("../routes/modules/admin");
 const adminController = require("./modules/admin");
 const userController = require("../controllers/user-controller");
 const { generalErrorHandler } = require("../middleware/error-handler");
-const { authenticated } = require("../middleware/auth");
+const { authenticated, authenticatedAdmin } = require("../middleware/auth");
 const passport = require("../config/passport");
 
 router.get("/restaurants", authenticated, restController.getRestaurants);
-router.use("/admin", adminController);
+router.use("/admin", authenticatedAdmin, admin);
 
 router.get("/signup", userController.signUpPage);
 router.post("/signup", userController.signUp);
