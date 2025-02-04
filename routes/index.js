@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const restController = require("../controllers/restaurant-controller");
 const admin = require("../routes/modules/admin");
-const adminController = require("./modules/admin");
 const userController = require("../controllers/user-controller");
 const { generalErrorHandler } = require("../middleware/error-handler");
 const { authenticated, authenticatedAdmin } = require("../middleware/auth");
