@@ -3,6 +3,19 @@
     <h1>{{restaurant.name}}</h1>
   </div>
   <div class="col-md-4">
+    <img
+      class="img-responsive center-block"
+      src="{{restaurant.image}}"
+      style="width: 250px; margin-bottom: 25px; transition: opacity 0.5s; opacity:0;"
+      onload="this.style.opacity=1;"
+    />
+    <br />
+    <h1>影片播放</h1>
+
+    <video width="640" height="360" controls>
+      <source src="{{restaurant.image}}" type="video/mp4" />
+      您的瀏覽器不支援 HTML5 影片標籤。
+    </video>
     <div class="well">
       <ul class="list-unstyled">
         <li><strong>Opening Hour:</strong> {{restaurant.openingHours}}</li>
@@ -14,6 +27,6 @@
   <div class="col-md-8">
     <p style="white-space: break-spaces;">{{restaurant.description}}</p>
   </div>
-  <hr>
+  <hr />
 </div>
 <a class="btn btn-outline-secondary" href="javascript:history.back()">Back</a>
