@@ -21,6 +21,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json()); 
 app.use(methodOverride("_method"));
 app.use("/upload", express.static(path.join(__dirname, "upload")));
 
