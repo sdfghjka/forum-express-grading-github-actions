@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const adminController = require("../../controllers/admin-controller");
 const upload = require("../../middleware/multer");
-const categoryController = require('../../controllers/category-controller')
+const categoryController = require("../../controllers/category-controller");
 
 router.get("/restaurants", adminController.getRestaurants);
 router.get("/restaurants/create", adminController.createRestaurant);
@@ -21,6 +21,7 @@ router.post(
 );
 router.get("/users", adminController.getUsers);
 router.patch("/users/:id", adminController.patchUser);
-router.get('/categories', categoryController.getCategories)
+router.get("/categories", categoryController.getCategories);
+router.post("/categories", categoryController.postCategory);
 router.use("/", (req, res) => res.redirect("/admin/restaurants"));
 module.exports = router;
