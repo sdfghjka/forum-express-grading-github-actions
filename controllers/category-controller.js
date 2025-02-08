@@ -13,7 +13,7 @@ const categoryController = {
       })
       .catch((err) => next(err));
   },
-  postCategory: (req, res) => {
+  postCategory: (req, res, next) => {
     const { name } = req.body;
     if (!name) throw new Error("Category name is required!");
     Category.create({
@@ -37,6 +37,21 @@ const categoryController = {
       })
       .then(() => res.redirect("/admin/categories"))
       .catch((err) => next(err));
+  },
+  deleteCategory: (req, res, next) => {
+    const { id } = req.params;
+    Category.findByPk(id)
+    .then((Category)=>{
+      if (!Category) throw new Error("Category didn't exist!");
+      return Category.destroy();
+    })
+    .then(()=>{
+      req.flash("success_messages", "刪除類別成功!")
+      return res.redirect("/admin/categories");
+    })
+    .catch((error)=>{
+      next(error)
+    })
   },
 };
 module.exports = categoryController;
