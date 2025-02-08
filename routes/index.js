@@ -7,6 +7,9 @@ const { generalErrorHandler } = require("../middleware/error-handler");
 const { authenticated, authenticatedAdmin } = require("../middleware/auth");
 const passport = require("../config/passport");
 
+
+
+router.get("/restaurants/:id", authenticated, restController.getRestaurant);
 router.get("/restaurants", authenticated, restController.getRestaurants);
 router.use("/admin", authenticatedAdmin, admin);
 
@@ -23,6 +26,7 @@ router.post(
   userController.signIn
 );
 router.get("/logout", userController.logout);
+
 router.use("/", (req, res) => res.redirect("/restaurants"));
 router.use("/", generalErrorHandler);
 module.exports = router;
