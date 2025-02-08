@@ -11,6 +11,7 @@ const passport = require("../config/passport");
 
 router.get("/restaurants/:id", authenticated, restController.getRestaurant);
 router.get("/restaurants", authenticated, restController.getRestaurants);
+router.get("/restaurants/:id/dashboard", authenticated, restController.getDashboard);
 router.use("/admin", authenticatedAdmin, admin);
 
 router.get("/signup", userController.signUpPage);
