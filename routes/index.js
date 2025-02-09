@@ -9,6 +9,7 @@ const { generalErrorHandler } = require("../middleware/error-handler");
 const { authenticated, authenticatedAdmin } = require("../middleware/auth");
 const passport = require("../config/passport");
 
+router.get("/restaurants/feeds", authenticated, restController.getFeeds);
 router.get("/restaurants/:id", authenticated, restController.getRestaurant);
 router.get("/restaurants", authenticated, restController.getRestaurants);
 router.get(
