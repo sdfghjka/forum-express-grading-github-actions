@@ -1,0 +1,22 @@
+<form action="/users/{{user.id}}?_method=PUT" method="POST" enctype="multipart/form-data">
+    <!-- 使用者頭像 -->
+    <div class="mb-3 text-center">
+        <img src="{{user.image}}" alt="User Image" class="rounded-circle" width="150" height="150">
+    </div>
+
+    <!-- 圖片上傳 -->
+    <div class="mb-3">
+        <label for="image" class="form-label">更換大頭照</label>
+        <input type="file" class="form-control" id="image" name="image">
+    </div>
+
+    <!-- 使用者姓名 -->
+    <div class="mb-3">
+        <label for="name" class="form-label">姓名</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{user.name}}">
+    </div>
+
+
+    <!-- 送出按鈕 -->
+    <button type="submit" class="btn btn-success">更新</button>
+</form>

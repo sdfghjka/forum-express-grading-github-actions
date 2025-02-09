@@ -3,6 +3,7 @@ const router = express.Router();
 const restController = require("../controllers/restaurant-controller");
 const commentController = require("../controllers/comment-controller");
 const admin = require("../routes/modules/admin");
+const users = require("../routes/modules/users");
 const userController = require("../controllers/user-controller");
 const { generalErrorHandler } = require("../middleware/error-handler");
 const { authenticated, authenticatedAdmin } = require("../middleware/auth");
@@ -17,6 +18,7 @@ router.get(
 );
 
 router.use("/admin", authenticatedAdmin, admin);
+router.use("/users", users);
 
 router.get("/signup", userController.signUpPage);
 router.post("/signup", userController.signUp);
@@ -31,7 +33,12 @@ router.post(
   userController.signIn
 );
 router.get("/logout", userController.logout);
-router.delete('/comments/:id', authenticatedAdmin, commentController.deleteComment)
+
+router.delete(
+  "/comments/:id",
+  authenticatedAdmin,
+  commentController.deleteComment
+);
 router.post("/comments", authenticated, commentController.postComment);
 router.use("/", (req, res) => res.redirect("/restaurants"));
 router.use("/", generalErrorHandler);
