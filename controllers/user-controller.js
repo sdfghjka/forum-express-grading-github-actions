@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const { where } = require("sequelize");
-const { User, Restaurant, Comment, Favorite } = require("../models");
+const { User, Restaurant, Comment, Favorite, Like } = require("../models");
 const { localFileHandler } = require("../helpers/file-helpers");
 const { raw } = require("express");
 
@@ -128,6 +128,48 @@ const userController = {
       })
       .then(() => res.redirect("back"))
       .catch((err) => next(err));
+  },
+  addLike: async (req, res, next) => {
+    try {
+      const { restaurantId } = req.params;
+      const [like, restaurant] = await Promise.all([
+        Like.findOne({ where: { userId: req.user.id, restaurantId } }),
+        Restaurant.findByPk(restaurantId),
+      ]);
+
+      if (!restaurant) throw new Error("Restaurant didn't exist!");
+      if (like) throw new Error("You have favorited this restaurant!");
+
+      const newLike = await Like.create({
+        userId: req.user.id,
+        restaurantId,
+      });
+
+      console.log("Like created:", newLike); // Debug log
+      return res.redirect("back");
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  removeLike: async (req, res, next) => {
+    try {
+      const { restaurantId } = req.params;
+      const like = await Like.findOne({
+        where: {
+          userId: req.user.id,
+          restaurantId,
+        },
+      });
+
+      if (!like) throw new Error("You haven't favorited this restaurant");
+
+      await like.destroy();
+      console.log("Like removed:", restaurantId); // Debug log
+      return res.redirect("back");
+    } catch (err) {
+      next(err);
+    }
   },
 };
 module.exports = userController;
