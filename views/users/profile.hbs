@@ -24,7 +24,7 @@
           <div class="col-md-8">
             <h4>{{user.name}}</h4>
             <p>{{user.email}}</p>
-            <p>評論數: <span>{{comment.count}}</span></p>
+            <p>評論數: <span>{{user.commentedRestaurants.length}}</span></p>
           </div>
           <div class="col-md-2 text-end">
             <a href="/users/{{user.id}}/edit" class="btn btn-primary">編輯</a>

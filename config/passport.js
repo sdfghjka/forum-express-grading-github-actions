@@ -42,7 +42,6 @@ passport.deserializeUser((id, cb) => {
     include: [{ model: Restaurant, as: "FavoritedRestaurants" },{ model: Restaurant, as: "LikeRestaurants" }],
   }).then((user) => {
     user = user.toJSON();
-    console.log(user);
     return cb(null, user);
   });
 });
