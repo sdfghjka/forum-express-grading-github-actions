@@ -1,5 +1,5 @@
-const { Restaurant, Category, Comment, User } = require("../models");
-const { getOffset, getPagination } = require("../helpers/pagination-helper");
+const { Restaurant, Category, Comment, User, Favorite } = require("../../models");
+const { getOffset, getPagination } = require("../../helpers/pagination-helper");
 
 const restController = {
   getRestaurants: (req, res) => {
@@ -100,6 +100,30 @@ const restController = {
         });
       })
       .catch((err) => next(err));
+  },
+  getTopRestaurants: (req, res, next) => {
+    return Restaurant.findAll({
+      include: [{ model: User, as: "FavoritedUsers" }],
+    })
+      .then((restaurants) => {
+        const result = restaurants
+          .map((r) => ({
+            ...r.toJSON(),
+            favoriteCount: r.FavoritedUsers.length,
+            isFavorited: req.user.FavoritedRestaurants.some(
+              (fr) => fr.id === r.id
+            ),
+          }))
+          .sort((a, b) => b.FavoritedUsers.length - a.FavoritedUsers.length)
+          .slice(0, 10);
+        return result;
+      })
+      .then((restaurants) => {
+        return res.render("top-restaurants", { restaurants });
+      })
+      .catch((err)=>{
+        next(err)
+      })
   },
 };
 module.exports = restController;

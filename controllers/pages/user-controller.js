@@ -7,8 +7,8 @@ const {
   Favorite,
   Like,
   Followship,
-} = require("../models");
-const { localFileHandler } = require("../helpers/file-helpers");
+} = require("../../models");
+const { localFileHandler } = require("../../helpers/file-helpers");
 const { raw } = require("express");
 
 const userController = {

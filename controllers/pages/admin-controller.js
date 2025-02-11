@@ -1,5 +1,5 @@
-const { Restaurant, User, Category } = require("../models");
-const { localFileHandler } = require("../helpers/file-helpers");
+const { Restaurant, User, Category } = require("../../models");
+const { localFileHandler } = require("../../helpers/file-helpers");
 const { raw } = require("express");
 const { where } = require("sequelize");
 
