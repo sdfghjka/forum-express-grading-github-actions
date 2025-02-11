@@ -1,5 +1,5 @@
 const express = require("express");
-const {pages} =require('./routes');
+const { pages, apis } = require('./routes') 
 const handlebars = require("express-handlebars");
 const app = express();
 const port = process.env.PORT || 3000;
@@ -12,6 +12,8 @@ const handlebarsHelpers = require("./helpers/handlebars-helpers");
 const methodOverride = require("method-override");
 const path = require("path");
 
+app.engine("hbs", handlebars({ extname: ".hbs", helpers: handlebarsHelpers }));
+app.set("view engine", "hbs");
 
 app.use(
   session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false })
@@ -32,9 +34,9 @@ app.use((req, res, next) => {
   next();
 });
 
+
+app.use('/api', apis)
 app.use(pages);
-app.engine("hbs", handlebars({ extname: ".hbs", helpers: handlebarsHelpers }));
-app.set("view engine", "hbs");
 
 app.listen(port, () => {
   console.info(`Example app listening on port http://localhost:${port}/`);
