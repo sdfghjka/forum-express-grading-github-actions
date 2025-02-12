@@ -35,6 +35,9 @@ app.use((req, res, next) => {
 });
 
 
+app.get('/session', (req, res) => {
+  res.json(req.session)
+})
 app.use('/api', apis)
 app.use(pages);
 
